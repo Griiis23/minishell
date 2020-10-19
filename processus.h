@@ -4,8 +4,8 @@
 /*
     Fichier process.h : En-tête des fonctions de gestion des
                         processus indépendants.
-    Groupe : n° X
-    Auteur :
+    Groupe : n° 17
+    Auteur : 
     Dépendances :
  */
 
@@ -16,8 +16,14 @@
     ...
  */
 typedef struct processus_t {
-  
-  
+	pid_t pid;
+  	int wstatus;
+	char *argv[MAX_ARGS];
+  	int stdin, stdout, stderr;
+  	int background;
+  	struct processus_t *next;
+    struct processus_t *next_succes;
+  	struct processus_t *next_failure;
 } processus_t;
 
 /*
