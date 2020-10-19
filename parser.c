@@ -70,7 +70,7 @@ int tokenize_str(char* str, char* tokens[]) {
     while ( token != NULL ) {
         // On le copie dans tokens
         printf("%s",token);
-        //strcpy(tokens[i], token);
+        strcpy(tokens[i], token);
         i++;
         // On récupère le prochain token
         token = strtok ( NULL, "\t " );
@@ -92,11 +92,13 @@ int env_str(char* tokens[]) {
 
 
 #include <stdlib.h>
+#include <stdio.h>
 
 int main(int argc, char* argv[]){
-    //char oui[10][10];
-    char oui2[] = "ls oui -l";
-    tokenize_str(oui2,NULL);
-    
-    return 0;
+	char *tokens[512];
+	for (int j = 0; j < 3; ++j) tokens[j] = (char*)malloc(256*sizeof(char));
+	char test[] = "ls -l oui";
+	tokenize_str(test,tokens);
+	for (int j = 0; j < 3; ++j) printf("%s\n",tokens[j]);
+	return 0;
 }
