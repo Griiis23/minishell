@@ -69,7 +69,6 @@ int tokenize_str(char* str, char* tokens[]) {
     char * token = strtok ( str, "\t " );
     while ( token != NULL ) {
         // On le copie dans tokens
-        printf("%s",token);
         strcpy(tokens[i], token);
         i++;
         // On récupère le prochain token
