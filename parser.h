@@ -1,6 +1,9 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include <string.h>
+#include <ctype.h>
+
 /*
     Fichier utils.h : En-tête des fonctions de traitement de
                       la ligne de commande
