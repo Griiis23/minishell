@@ -22,7 +22,7 @@ int trim_str(char* str) {
     
     //On compte le nombre de blanc au debut
     while(isblank(str[i])) i++;
-    //On deplace i caractère vers la gauche
+    //On deplace de i caractère vers la gauche
     memmove(str,str+i,len-i+1);
     
     //On remplace tous les blancs par des \0 a la fin
@@ -40,18 +40,13 @@ int trim_str(char* str) {
       Retourne 0 en cas de succés, une autre valeur en cas d'échec
  */
 int clean_str(char* str) { 
-    char new_str[MAX_LINE_SIZE];
-	for(int i=0; i<strlen(str);i++){
-	    //On récupère les premiers exemplaires de chaque caractère
-	   	new_str[i]=str[i];
-	   	//On passe à l'élément suivant lorsqu'on trouve des doublons d'espaces 
-	   	// ou de \t  
-        if(str[i] == ' ' || str[i] == '\t'){
-            if(str[i] == str[i+1]){
-				i++;
-	    	}
-		}
+    char temp[MAX_LINE_SIZE];
+    int j=0;
+	for(int i=0; i<strlen(str); i++) {
+	    if(!(isblank(str[i]) && isblank(str[i+1]))) temp[j++]=str[i];
 	}
+    temp[j]='\0';
+    strcpy(str, temp);
     return 0;
 }
 
@@ -74,6 +69,7 @@ int tokenize_str(char* str, char* tokens[]) {
         // On récupère le prochain token
         token = strtok ( NULL, "\t " );
     }
+    tokens[i]=NULL;
     return i;
 }
 
@@ -83,21 +79,29 @@ int tokenize_str(char* str, char* tokens[]) {
       Paramètre tokens : le tableau dans lequel les substitutions sont faites
       Retourne 0 en cas de succés, une autre valeur en cas d'échec
  */
+
+#include <stdlib.h>
+#include <stdio.h>
 int env_str(char* tokens[]) {
+    int i=0;
+    while(tokens[i]!=NULL) {
+        if(*(tokens[i])=='$'){
+            tokens[i]=getenv(tokens[i]+1);   
+        }
+        i++;
+    }
     return 0;
 }
 
 
 
-
-#include <stdlib.h>
-#include <stdio.h>
-
 int main(int argc, char* argv[]){
 	char *tokens[512];
 	for (int j = 0; j < 3; ++j) tokens[j] = (char*)malloc(256*sizeof(char));
-	char test[] = "ls -l oui";
+	char test[] = "  ls -l $PATH";
 	tokenize_str(test,tokens);
-	for (int j = 0; j < 3; ++j) printf("%s\n",tokens[j]);
+    env_str(tokens);
+	int i=0;
+    while(tokens[i]!=NULL) printf("%s\n",tokens[i++]);
 	return 0;
 }
