@@ -9,6 +9,9 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 
 /*
  Fonction count_tokens :  Compte le nombre de tokens dans le tableau
