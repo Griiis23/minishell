@@ -1,9 +1,6 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include <string.h>
-#include <ctype.h>
-
 /*
     Fichier utils.h : En-tête des fonctions de traitement de
                       la ligne de commande
@@ -11,6 +8,11 @@
     Auteur :
     Dépendances :
  */
+
+
+#include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
 
 // Nombre maximum de caractères d'une ligne
 #define MAX_LINE_SIZE 1024
