@@ -80,8 +80,6 @@ int tokenize_str(char* str, char* tokens[]) {
       Retourne 0 en cas de succés, une autre valeur en cas d'échec
  */
 
-#include <stdlib.h>
-#include <stdio.h>
 int env_str(char* tokens[]) {
     int i=0;
     while(tokens[i]!=NULL) {
