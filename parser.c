@@ -59,19 +59,23 @@ int clean_str(char* str) {
       Retourne le nombre de chaînes dans tokens
  */
 int tokenize_str(char* str, char* tokens[]) {
+    int nbr_token = 0;
     int i = 0;
-    // On récupère le 1er token
-    char * token = strtok ( str, "\t " );
-    while ( token != NULL ) {
-        // On le copie dans tokens
-        strcpy(tokens[i], token);
+    while(str[i]!='\0') {
+        //On ajoute un token
+        tokens[nbr_token++]=str+i;
+        //On deplace aux prochain caractère d'espacement 
+        while(!isblank(str[i]) && str[i]!='\0') i++;
+        //On met un caractère de fin de chaine
+        str[i]='\0';
         i++;
-        // On récupère le prochain token
-        token = strtok ( NULL, "\t " );
     }
-    tokens[i]=NULL;
-    return i;
+    tokens[nbr_token]=NULL;
+    
+    return nbr_token;
 }
+
+
 
 /*
   Fonction env_str :  Remplace les noms des variables d'environnement par
@@ -79,27 +83,12 @@ int tokenize_str(char* str, char* tokens[]) {
       Paramètre tokens : le tableau dans lequel les substitutions sont faites
       Retourne 0 en cas de succés, une autre valeur en cas d'échec
  */
-
 int env_str(char* tokens[]) {
     int i=0;
     while(tokens[i]!=NULL) {
-        if(*(tokens[i])=='$'){
-            tokens[i]=getenv(tokens[i]+1);   
-        }
+        if(*(tokens[i])=='$') tokens[i]=getenv(tokens[i]+1);
         i++;
     }
     return 0;
 }
 
-
-
-int main(int argc, char* argv[]){
-	char *tokens[512];
-	for (int j = 0; j < 3; ++j) tokens[j] = (char*)malloc(256*sizeof(char));
-	char test[] = "  ls -l $PATH";
-	tokenize_str(test,tokens);
-    env_str(tokens);
-	int i=0;
-    while(tokens[i]!=NULL) printf("%s\n",tokens[i++]);
-	return 0;
-}
