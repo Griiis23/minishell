@@ -28,7 +28,7 @@ char** clear_tokens(char* tokens[]) {
     int i=0;
     //On remplace tous les éléments par NULL
     while(tokens[i] != NULL) {
-        tokens[i]==NULL;
+        tokens[i]=NULL;
         i++;
     }
     return tokens;

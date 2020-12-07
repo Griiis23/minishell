@@ -9,6 +9,11 @@
     Dépendances :
  */
 
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include "parser.h"
+
 /*
  Structure processus_t permettant de décrire les paramètres d'un
  processus lancé ou à lancer (PID, stdin, stdout, status, ...)
@@ -16,14 +21,14 @@
     ...
  */
 typedef struct processus_t {
-	pid_t pid;
-  	int wstatus;
+  pid_t pid;
+  int wstatus;
 	char *argv[MAX_ARGS];
-  	int stdin, stdout, stderr;
-  	int background;
-  	struct processus_t *next;
-    struct processus_t *next_succes;
-  	struct processus_t *next_failure;
+	int stdin, stdout, stderr;
+	int background;
+	struct processus_t *next;
+	struct processus_t *next_success;
+	struct processus_t *next_failure;
 } processus_t;
 
 /*

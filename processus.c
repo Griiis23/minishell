@@ -15,22 +15,18 @@
       Retourne 0 en cas de succés, une autre valeur en cas d'échec
  */
 int exec_processus(processus_t* proc) {
-    pid_t pid_fils;
-    if(!(pid_fils==fork())) {
-        if(proc->background != 1){
-            dup2(proc->stdin,0);
-            dup2(proc->stdout,1);
-            dup2(proc->stderr,2);
-            close(proc->stdin);
-            close(proc->stdout);
-            close(proc->stderr);
-            execv (proc->argv[1],proc->argv);
-        }
-        else{
-            execv (proc->argv[1],proc->argv);
-        }
-        return 0;
-    }
+  if(!(proc->pid==fork())) {
+    dup2(proc->stdin,STDIN_FILENO);
+    dup2(proc->stdout,STDOUT_FILENO);
+    dup2(proc->stderr,STDERR_FILENO);
+    close(proc->stdin);
+    close(proc->stdout);
+    close(proc->stderr);
+    execvp(proc->argv[0],proc->argv);
+    return 1;
+  }
+  if(proc->background == 0) wait(&proc->wstatus);
+
 }
 
 /*
@@ -40,12 +36,6 @@ int exec_processus(processus_t* proc) {
       Retourne le "status" d'un processus lancé en arrière plan
  */
 int status_processus(processus_t* proc) {
-    if(proc->background == 1) return proc->wstatus;
-    else return -1;
-}
-
-int main(int argc, char const *argv[])
-{
-    processus_t proc;
-    return 0;
+  if(proc->background == 1) return proc->wstatus;
+  else return -1;
 }
