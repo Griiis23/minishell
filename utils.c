@@ -2,9 +2,9 @@
 
 /*
     Fichier utils.h : Implémentation des fonctions utilitaires
-    Groupe : n° 17
-    Auteur :
-    Dépendances :
+    Groupe : n° 17, 28
+    Auteur : BOUCHARD Quentin, GREMONT Quentin, JOUGLET Grégory
+    Dépendances : stdlib.h, string.h, parser.h
  */
 
 /*

@@ -4,9 +4,9 @@
 /*
     Fichier process.h : En-tête des fonctions de gestion des
                         processus indépendants.
-    Groupe : n° 17
-    Auteur : 
-    Dépendances :
+    Groupe : n° 17, 28
+    Auteur : BOUCHARD Quentin, GREMONT Quentin, JOUGLET Grégory
+    Dépendances : unistd.h, sys/types.h, sys/wait.h, parser.h, builtin.h
  */
 
 #include <unistd.h>

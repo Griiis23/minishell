@@ -4,9 +4,9 @@
 /*
     Fichier cmdline.h : En-tête des fonctions de gestion de
                         la ligne de commande.
-    Groupe : n° X
-    Auteur :
-    Dépendances :
+    Groupe : n° 17, 28
+    Auteur : BOUCHARD Quentin, GREMONT Quentin, JOUGLET Grégory
+    Dépendances : fcntl.h, stdio.h, processus.h, parser.h, utils.h
  */
 
 #include <fcntl.h>

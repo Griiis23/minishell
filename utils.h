@@ -3,9 +3,9 @@
 
 /*
     Fichier utils.h : En-tête des fonctions utilitaires
-    Groupe : n° X
-    Auteur :
-    Dépendances :
+    Groupe : n° 17, 28
+    Auteur : BOUCHARD Quentin, GREMONT Quentin, JOUGLET Grégory
+    Dépendances : stdlib.h, string.h, parser.h
  */
 
 #include <stdlib.h>

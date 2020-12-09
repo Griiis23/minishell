@@ -3,9 +3,9 @@
 /*
     Fichier process.c : En-tête des fonctions de gestion des
                         processus indépendants.
-    Groupe : n° 17
-    Auteur : 
-    Dépendances :
+    Groupe : n° 17, 28
+    Auteur : BOUCHARD Quentin, GREMONT Quentin, JOUGLET Grégory
+    Dépendances : unistd.h, sys/types.h, sys/wait.h, parser.h, builtin.h
  */
 
 /*
@@ -42,37 +42,40 @@ int exec_processus(processus_t* proc) {
     return cwd(proc->stdout, proc->stderr);
   }
 
-  // Fils
-  if(!(proc->pid=fork())) {
+  // Si n'est pas une commande builtin
+  if(!(proc->pid=fork())) { //Fils
+    // Remplace les fd si necessaire
     if(proc->stdin != STDIN_FILENO) {
       dup2(proc->stdin,STDIN_FILENO);
-      close(proc->stdin);
+      if(proc->stdin > 2) close(proc->stdin);
     }
     if(proc->stdout != STDOUT_FILENO) {
       dup2(proc->stdout,STDOUT_FILENO);
-      close(proc->stdout);
+      if(proc->stdout > 2) close(proc->stdout);
     }
     if(proc->stderr != STDERR_FILENO) {
       dup2(proc->stderr,STDERR_FILENO);
-      close(proc->stderr);
+      if(proc->stderr > 2) close(proc->stderr);
     } 
 
+    // Essaye de lancer le programme
     execvp(proc->argv[0],proc->argv);
+    write(proc->stderr,"commande introuvable\n",21);
     exit(1);
   }
 
-  // Fermeture des fd
-  if(proc->stdin != STDIN_FILENO) close(proc->stdin);
-  if(proc->stdout != STDOUT_FILENO) close(proc->stdout);
-  if(proc->stderr != STDERR_FILENO) close(proc->stderr);
+  // Fermeture des fd ouvert autre que les standards
+  if(proc->stdin > 2) close(proc->stdin);
+  if(proc->stdout > 2) close(proc->stdout);
+  if(proc->stderr > 2) close(proc->stderr);
 
   // Si pas en arrière plan
   // Attendre la fin du fils avant de rendre la main
   if(proc->background != 1) {
     do {
       waitpid(proc->pid,&proc->wstatus, 0);
+      // Tant que status n'est pas égale à terminé
     } while (!WIFEXITED(proc->wstatus) && !WIFSIGNALED(proc->wstatus));
-
   }
 
 }
@@ -84,6 +87,7 @@ int exec_processus(processus_t* proc) {
       Retourne le "status" d'un processus lancé en arrière plan
  */
 int status_processus(processus_t* proc) {
+  // Met à jour proc.wstatus sans attendre
   waitpid(proc->pid,&proc->wstatus, WNOHANG);
   return proc->wstatus;
 }

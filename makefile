@@ -1,5 +1,10 @@
-prog: parser.o builtin.o cmdline.o utils.o processus.o
-	gcc parser.o builtin.o utils.o processus.o cmdline.o
+#
+#     Fichier makefile : Makefile
+#     Groupe : n° 17, 28
+#     Auteur : BOUCHARD Quentin, GREMONT Quentin, JOUGLET Grégory
+#
+minishell: parser.o builtin.o cmdline.o utils.o processus.o
+	gcc parser.o builtin.o utils.o processus.o cmdline.o -o minishell
 builtin.o:builtin.c
 	gcc builtin.c -c 
 cmdline.o:cmdline.c

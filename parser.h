@@ -4,9 +4,9 @@
 /*
     Fichier utils.h : En-tête des fonctions de traitement de
                       la ligne de commande
-    Groupe : n° X
-    Auteur :
-    Dépendances :
+    Groupe : n° 17, 28
+    Auteur : BOUCHARD Quentin, GREMONT Quentin, JOUGLET Grégory
+    Dépendances : string.h, ctype.h, stdlib.h
  */
 
 
