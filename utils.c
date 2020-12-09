@@ -15,7 +15,7 @@
  */
 size_t count_tokens(char* tokens[]) {
     int i=0;
-    while(tokens[i] != NULL) i++;
+    while(tokens[i] != NULL && i<MAX_ARGS) i++;
     return i;
 }
 
@@ -27,7 +27,7 @@ size_t count_tokens(char* tokens[]) {
 char** clear_tokens(char* tokens[]) {
     int i=0;
     //On remplace tous les éléments par NULL
-    while(tokens[i] != NULL) {
+    while(tokens[i] != NULL && i<MAX_ARGS) {
         tokens[i]=NULL;
         i++;
     }

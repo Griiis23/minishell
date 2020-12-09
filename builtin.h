@@ -9,6 +9,10 @@
     Dépendances :
  */
 
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+
 
 int cd(const char* path);
 
@@ -18,7 +22,7 @@ int unset(const char* env, int fderr);
 
 int env(int fdout, int fderr);
 
-int exit(int val, int fdout, int fderr);
+int myexit(int val, int fdout, int fderr);
 
 int cwd(int fdout, int fderr);
 

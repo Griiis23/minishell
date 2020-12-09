@@ -18,7 +18,6 @@
 int trim_str(char* str) {
     int i=0;
     int len = strlen(str);
-    if(len > MAX_LINE_SIZE) return 1;
     
     //On compte le nombre de blanc au debut
     while(isblank(str[i])) i++;
@@ -61,12 +60,12 @@ int clean_str(char* str) {
 int tokenize_str(char* str, char* tokens[]) {
     int nbr_token = 0;
     int i = 0;
-    while(str[i]!='\0') {
+    while(str[i]!='\0' && str[i]!='\n') {
         //On ajoute un token
         tokens[nbr_token++]=str+i;
         //On deplace aux prochain caractère d'espacement 
-        while(!isblank(str[i]) && str[i]!='\0') i++;
-        //On met un caractère de fin de chaine
+        while(!isblank(str[i]) && str[i]!='\0' && str[i]!='\n') i++;
+        //On remplace par un caractère de fin de chaine
         str[i]='\0';
         i++;
     }

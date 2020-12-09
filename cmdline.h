@@ -9,10 +9,14 @@
     Dépendances :
  */
 
+#include <fcntl.h>
+#include <stdio.h>
 
 #include "processus.h"
+#include "parser.h"
 #include "utils.h"
-#include <fcntl.h>
+
+
 
 /*
   Fonction init_process : Crée l'enchaînement de processus à partir du

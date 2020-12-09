@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include "parser.h"
+#include "builtin.h"
 
 /*
  Structure processus_t permettant de décrire les paramètres d'un
